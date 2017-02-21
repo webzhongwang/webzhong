@@ -5,7 +5,7 @@ $(document).ready(function(){
 	 	$container = $('#container'),
 	 	handlers = {},
 	 	per = 12,		// 每次显示的照片数
-	 	allTotal = 104,	// 照片总数
+	 	allTotal = 108,	// 照片总数
 	 	start = parseInt(allTotal * Math.random()),		// 默认开始数
 	 	zindex = 2;
 
