@@ -2,8 +2,8 @@ $(function(){
 	$('#submit').on('click', function(){
 		$.ajax({
 			type: 'post',
-			url: 'api/message.php',
-			data: {content: $('#content').val()},
+			url: 'http://192.168.117.132:8001/api/message/create',
+			data: {remark: $('#content').val()},
 			success: function(result){
 				getList();
 				$('#content').val('');
@@ -15,10 +15,10 @@ $(function(){
 	function getList(){
 		$.ajax({
 			type: 'get',
-			url: 'api/get_message_list.php',
+			url: 'http://192.168.117.132:8001/api/message/list',
 			dataType: 'json',
 			success: function(result){
-				createHtml(result);
+				createHtml(result.data);
 			},
 			error: function(err){
 			}
@@ -30,8 +30,8 @@ $(function(){
 		var html = '', 
 			total = 32,
 			c;
-
-		data.forEach(function(item,index){
+		console.log(data)
+		data.list.forEach(function(item,index){
 
 			c = parseInt(total * Math.random());
 
@@ -39,9 +39,9 @@ $(function(){
 						<div class="item-in">\
 							<div class="item-t">\
 								<span class="item-ip">路人（' + item.ip + '）</span>\
-								<span class="item-time">' + item.create_at + '</span>\
+								<span class="item-time">' + datetime(item.create_at) + '</span>\
 							</div>\
-							<div class="item-cont">' + item.content + '</div>\
+							<div class="item-cont">' + item.remark + '</div>\
 						</div>\
 					</div>';
 		});
@@ -50,3 +50,28 @@ $(function(){
 	}
 
 })
+function datetime(val,type){
+	if (!val) return val;
+    var val = parseInt(val);
+    var date = new Date(val),
+        y = date.getFullYear(),
+        m = date.getMonth() + 1,
+        d = date.getDate(),
+        h = date.getHours(),
+        min = date.getMinutes(),
+        s = date.getSeconds(),
+        str = '';
+
+    function check (value){
+        return value > 9 ? value : '0' + value;
+    }
+    var str = '';
+    if(type == 'h'){
+        str = '' + y + '-' + check(m) + '-' + check(d) + ' ' + check(h);
+    } else if (type == 'm') {
+        str = '' + y + '-' + check(m) + '-' + check(d) + ' ' + check(h) + ':' + check(min);
+    } else {
+        str = '' + y + '-' + check(m) + '-' + check(d) + ' ' + check(h) + ':' + check(min) + ':' + check(s);
+    }
+    return str;
+}
