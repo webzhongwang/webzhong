@@ -2,7 +2,7 @@ $(function(){
 	$('#submit').on('click', function(){
 		$.ajax({
 			type: 'post',
-			url: 'http://192.168.117.132:8001/api/message/create',
+			url: 'api/message/create',
 			data: {remark: $('#content').val()},
 			success: function(result){
 				getList();
@@ -15,7 +15,7 @@ $(function(){
 	function getList(){
 		$.ajax({
 			type: 'get',
-			url: 'http://192.168.117.132:8001/api/message/list',
+			url: 'api/message/list',
 			dataType: 'json',
 			success: function(result){
 				createHtml(result.data);
