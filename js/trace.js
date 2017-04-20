@@ -4,7 +4,7 @@ map.centerAndZoom(new BMap.Point(104.0712160000, 34.5762790000), 5);
 // 允许滚动
 map.enableScrollWheelZoom();
 map.setMinZoom(5);
-map.setMaxZoom(6);
+map.setMaxZoom(10);
 
 function getBoundary(){       
 	var bdary = new BMap.Boundary();
